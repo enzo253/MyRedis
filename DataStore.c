@@ -26,6 +26,32 @@ void set(const char *key, const char *value, int expiry) {
 	printf("ERROR: Store is full\n")
 }
 
+const char *get(const char *key) {
+    for (int i = 0; i < MAX_KEYS; i++) {
+        if (strcmp(store[i].key, key) == 0) {
+            if (store[i].expiry != 0 && time(NULL) > store[i].expiry) {
+
+                strcpy(store[i].key, "");
+                return "(nil)"; 
+            }
+            return store[i].value;
+        }
+    }
+    return "(nil)";
+}
+
+
+void del(const char *key) {
+    for (int i = 0; i < MAX_KEYS; i++) {
+        if (strcmp(store[i].key, key) == 0) {
+            strcpy(store[i].key, "");
+            printf("OK\n");
+            return;
+        }
+    }
+    printf("ERROR: Key not found\n");
+}
+
 
 
 
