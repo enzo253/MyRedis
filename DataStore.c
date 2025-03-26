@@ -11,11 +11,11 @@ typedef struct {
 	time_t expiry;
 } KeyValue;
 
-keyValue store[MAX_KEYS];
+KeyValue store[MAX_KEYS];
 
 void set(const char *key, const char *value, int expiry) {
 	for (int i = 0; i < MAX_KEYS; i++) {
-		if (strlen(store[i] == 0) {
+		if (strlen(store[i].key) == 0) {
 			strcpy(store[i].key, key);
 			strcpy(store[i].value, value);
 			store[i].expiry = expiry > 0 ? time(NULL) + expiry : 0;
@@ -23,7 +23,7 @@ void set(const char *key, const char *value, int expiry) {
 			return;
 		}
 	}
-	printf("ERROR: Store is full\n")
+	printf("ERROR: Store is full\n");
 }
 
 const char *get(const char *key) {

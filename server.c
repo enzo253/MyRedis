@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-#include "datastore.h"
+#include "DataStore.h"
 
 #define BUFFER_SIZE 1024
 
@@ -11,7 +11,7 @@ void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
 
     while (1) {
-	memset(buffer[BUFFER_SIZE];
+	memset(buffer, 0, BUFFER_SIZE);
 	int bytes_read = read(client_socket, buffer, BUFFER_SIZE - 1);
 
 	if (bytes_read <= 0) {
@@ -36,7 +36,7 @@ void handle_client(int client_socket) {
         } else if (sscanf(buffer, "DEL %s", key) == 1) {
             del(key);
             write(client_socket, "+OK\r\n", 5); 
-	}
+        }
     }
 }
 
